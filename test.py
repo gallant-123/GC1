@@ -1,5 +1,5 @@
 import unittest
-from app import shoppingCart,cartItem
+from app import cartItem,shoppingCart
 
 class testApp(unittest.TestCase):
 
@@ -8,8 +8,10 @@ class testApp(unittest.TestCase):
         #input objek shoppingCart
         cart = shoppingCart()
 
+        item = cartItem("ayam",5000)
+
         #memanggil method menambahkan barang
-        result = cart.menambahkanBarang("ayam", 5000)
+        result = cart.menambahkanBarang(item)
 
         #output yang diinginkan                              
         expectation = ("Barang ayam berhasil ditambahkan", 5000)
@@ -21,20 +23,28 @@ class testApp(unittest.TestCase):
 
         cart = shoppingCart()
 
-        result = cart.hapusBarang ("ikan",5000)
-        expectation = ("Barang ayam berhasil dihapus", 5000)
+        nama = "ayam"
+        harga = 5000
+        item = cartItem(nama,harga)
+        cart.menambahkanBarang(item)
+
+        result = cart.hapusBarang ("ayam")
+        expectation = "Barang ayam berhasil dihapus"
 
         self.assertEqual(result, expectation)
 
     def testTotalHarga(self):
         cart = shoppingCart()
 
-        cart.menambahkanBarang("ikan", 5000)
-        cart.menambahkanBarang("ayam", 6000)
+        nama = "ayam"
+        harga = 5000
+        item = cartItem(nama,harga)
+        cart.menambahkanBarang (item)
+    
 
-        result = cart.totalHarga
+        result = cart.totalHarga (5000)
 
-        expectation = "Total harga adalah 11000"
+        expectation = "Total belanja adalah 5000"
 
         self.assertEqual(result, expectation)
 

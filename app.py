@@ -21,27 +21,27 @@ class shoppingCart:
         self.items = [] #untuk menyimpan item yang dibuat
 
         #function menambahkan barang
-    def menambahkanBarang(self,item):
-            # nama = input("Masukkan nama barang: ")
-            # harga = int(input("Masukkan harga barang: "))
-            # #untuk menambahkan item yang ingin ditambahkan
-            # item = cartItem (nama,harga)
+    def menambahkanBarang(self, item):
+        # Memastikan item adalah objek CartItem
+        if isinstance(item, cartItem):
             self.items.append(item)
-            print(f"Barang {item.nama} berhasil ditambahkan")
-
+            return (f"Barang {item.nama} berhasil ditambahkan", item.harga)
+        else:
+            raise ValueError("Item harus berupa objek CartItem")
         #function hapus barang
-    def hapusBarang(self):
-            nama = input("Masukkan barang yang ingin dihapus: ")
-            for item in self.items:
-               #untuk menghapus barang yang sudah tidak diinginkan
-               if item.nama == nama:
-                   self.items.remove(item)  
-                   print("Barang berhasil dihapus")
+    def hapusBarang(self,nama):
+        for i in self.items:
+            if nama  == i.nama:
+            #untuk menghapus barang yang sudah tidak diinginkan
+                self.items.remove(i)  
+                return(f"Barang {nama} berhasil dihapus")
         
         #function total harga
-    def totalHarga(self):
-        total = sum(item.harga for item in self.items)
-        return f"Total belanja adalah {total}"
+    def totalHarga(self, harga):
+        for i in self.items:
+            if harga == i.harga:
+                total = sum(item.harga for item in self.items)
+                return (f"Total belanja adalah {total}")
         
         #funtion tampilkan barang        
     def showBarang(self):
@@ -71,15 +71,17 @@ class shoppingCart:
             if pilihanMenu == "1":
                 nama = input("Masukkan nama barang: ")
                 harga = int(input("Masukkan harga barang: "))
-                #untuk menambahkan item yang ingin ditambahkan
                 item = cartItem (nama,harga)
-                self.menambahkanBarang(item)
+                x = self.menambahkanBarang(item)
+                print(x)
             elif pilihanMenu == "2":
-                self.hapusBarang()
+                nama = input("Masukkan barang yang ingin dihapus: ")
+                x = self.hapusBarang(nama)
+                print(x)
             elif pilihanMenu == "3":
                 self.showBarang()
             elif pilihanMenu == "4":
-                hasil = self.totalHarga()
+                hasil = self.totalHarga(harga)
                 print(hasil)
             elif pilihanMenu == "5":
                 print("Sampai Jumpa! Terima kasih sudah belanja di Toko Makmur.")
